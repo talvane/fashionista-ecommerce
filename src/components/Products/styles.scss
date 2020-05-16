@@ -1,0 +1,37 @@
+.products {
+  padding-top: 1.6rem;
+  padding-bottom: 1.6rem;
+}
+.products__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-left: -0.25rem;
+  margin-right: -0.25rem;
+}
+@media screen and (min-width: 992px) {
+  .products__grid {
+    justify-content: left;
+  }
+}
+.products__box {
+  padding: 1rem 0.25rem;
+  position: relative;
+  text-align: center;
+  width: calc(100% / 2);
+}
+@media screen and (min-width: 992px) {
+  .products__box {
+    width: calc(100% / 4);
+  }
+}
+.products__box .badge {
+  position: absolute;
+  right: 0;
+  margin: 0;
+}
+.products .header__title {
+  color: #a7a7a7;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
