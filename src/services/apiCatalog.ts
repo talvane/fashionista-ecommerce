@@ -1,0 +1,36 @@
+import axios from 'axios';
+
+interface Sizes {
+  available: boolean;
+  size: string;
+  sku: string;
+}
+
+interface ArrayCatlog {
+  name: string;
+  style: string;
+  code_color: string;
+  color_slug: string;
+  color: string;
+  on_sale?: boolean;
+  regular_price: string;
+  actual_price: string;
+  discount_percentage: string;
+  installments: string;
+  image: string;
+  sizes: Array<Sizes>[];
+}
+
+export interface Catalog extends Array<ArrayCatlog> {}
+
+export async function getCatalog() {
+  const url = 'https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog';
+
+  try {
+    const catalog = await axios.get<Catalog>(url);
+
+    return catalog.data;
+  } catch (error) {
+    throw error;
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Header from '.';
 import SearchButton from '../SearchButton';
@@ -9,9 +10,9 @@ const HeaderDefault: React.FC = () => {
   return (
     <Header>
       <div className="header__default">
-        <a href="">
+        <Link to="/">
           <img src="" alt="Fashionista"></img>
-        </a>
+        </Link>
 
         <div className="header__icons">
           <SearchButton className="header__icons--search" />
