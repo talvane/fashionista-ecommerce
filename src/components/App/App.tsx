@@ -1,18 +1,21 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+
+import { RootState } from '../../store/rootReducer';
 
 import Drawer from '../Drawer';
 
 import './styles.scss';
 
-interface AppPros {
-  isDrawerVisible?: boolean;
-}
+const App: React.FC = ({ children }) => {
+  const { isDrawerVisible } = useSelector((state: RootState) => state.drawer);
 
-const App: React.FC<AppPros> = ({ children, isDrawerVisible }) => (
-  <div className={`app ${isDrawerVisible ? 'app--is-drawer-visible' : ''}`}>
-    {children}
-    <Drawer />
-  </div>
-);
+  return (
+    <div className={`app ${isDrawerVisible ? 'app--is-drawer-visible' : ''}`}>
+      {children}
+      <Drawer />
+    </div>
+  );
+};
 
 export default App;
