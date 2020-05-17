@@ -1,36 +1,39 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface DisplayCatalog {
-  img: string;
-  badge: string;
-  name: string;
-  regular_price: string;
-  actual_price: string;
+  loading: boolean;
+  error: null;
+  products: [];
 }
 
 let initialState: DisplayCatalog = {
-  img: '',
-  badge: '',
-  name: '',
-  regular_price: '',
-  actual_price: '',
+  loading: false,
+  error: null,
+  products: [],
 };
 
 const products = createSlice({
   name: 'products',
   initialState,
   reducers: {
-    displayCatalog(state, action: PayloadAction<DisplayCatalog>) {
-      const { img, badge, name, regular_price, actual_price } = action.payload;
-      state.img = img;
-      state.badge = badge;
-      state.name = name;
-      state.regular_price = regular_price;
-      state.actual_price = actual_price;
+    start(state) {
+      state.loading = true;
+      state.error = null;
+    },
+
+    success(state, action: PayloadAction<DisplayCatalog>) {
+      state.loading = false;
+      state.error = null;
+      state.products = action.payload.products;
+    },
+
+    error(state, action: PayloadAction<DisplayCatalog>) {
+      state.loading = false;
+      state.error = action.payload.error;
     },
   },
 });
 
-export const { displayCatalog } = products.actions;
+export const { start, success, error } = products.actions;
 
 export default products.reducer;
