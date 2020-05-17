@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Badge from '../Badge';
+
 interface ProductImageProps {
   image: string;
   onSale?: boolean;
@@ -8,11 +10,11 @@ interface ProductImageProps {
 }
 
 const ProductImage: React.FC<ProductImageProps> = ({ children, ...rest }) => {
-  const { image, altAttr } = { ...rest };
+  const { image, altAttr, onSale, discount } = { ...rest };
 
   return (
     <figure className="product__image">
-      {/*onSale && <Badge discount={discount} />*/}
+      {onSale && <Badge discount={discount} />}
       {image ? (
         <img src={image} alt={`Produto ${altAttr}`} title={altAttr} />
       ) : (
