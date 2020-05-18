@@ -6,7 +6,7 @@ interface Sizes {
   sku: string;
 }
 
-interface ArrayCatlog {
+export interface ArrayCatlog {
   name: string;
   style: string;
   code_color: string;
