@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { filterProductBySlug } from '../utils/handlerProduct';
 
 interface Sizes {
   available: boolean;
@@ -34,3 +35,8 @@ export async function getCatalog() {
     throw error;
   }
 }
+
+export const getProductByPathname = async (pathname: string, code: string) => {
+  const data = await getCatalog();
+  return filterProductBySlug(pathname, code, data);
+};
