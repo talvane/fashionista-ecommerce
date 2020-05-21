@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import ProductImage from './ProductImage';
+import slugfy from '../../utils/slugfy';
 
 import './styles.scss';
 
@@ -13,6 +14,7 @@ interface ProductProps {
   discount_percentage: string;
   regular_price: string;
   actual_price: string;
+  style: string;
 }
 
 const Product: React.FC<ProductProps> = ({ children, ...rest }) => {
@@ -24,11 +26,12 @@ const Product: React.FC<ProductProps> = ({ children, ...rest }) => {
     discount_percentage,
     regular_price,
     actual_price,
+    style,
   } = { ...rest };
 
   return (
-    <div className={className}>
-      <Link to={`/produto/${name}`}>
+    <div className={className} key={style}>
+      <Link to={`/produto/${slugfy(name)}`}>
         <ProductImage
           image={image}
           onSale={on_sale}
