@@ -15,6 +15,7 @@ interface ProductProps {
   regular_price: string;
   actual_price: string;
   style: string;
+  code_color: string;
 }
 
 const Product: React.FC<ProductProps> = ({ children, ...rest }) => {
@@ -27,11 +28,12 @@ const Product: React.FC<ProductProps> = ({ children, ...rest }) => {
     regular_price,
     actual_price,
     style,
+    code_color,
   } = { ...rest };
 
   return (
     <div className={className} key={style}>
-      <Link to={`/produto/${slugfy(name)}`}>
+      <Link to={`/produto/${slugfy(name)}/${code_color}`}>
         <ProductImage
           image={image}
           onSale={on_sale}
