@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { v1 as uuid } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchCatalog } from '../../store/reducers/products';
+import { fetchCatalog } from '../../store/reducers/thunks';
 import { RootState } from '../../store/rootReducer';
 
 import Product from '../Product';
