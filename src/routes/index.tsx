@@ -15,7 +15,7 @@ const Routes: React.FC = () => (
     <App>
       <Switch>
         <Route exact path="/" component={Catalog} />
-        <Route exact path="/produto/:id" component={Product} />
+        <Route exact path="/produto/:id/:code" component={Product} />
       </Switch>
     </App>
   </ConnectedRouter>
