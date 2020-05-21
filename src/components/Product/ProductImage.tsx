@@ -3,10 +3,10 @@ import React from 'react';
 import Badge from '../Badge';
 
 interface ProductImageProps {
-  image: string;
+  image?: string;
   onSale?: boolean;
   discount: string;
-  altAttr: string;
+  altAttr?: string;
 }
 
 const ProductImage: React.FC<ProductImageProps> = ({ children, ...rest }) => {
