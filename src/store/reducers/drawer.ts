@@ -17,17 +17,17 @@ const drawer = createSlice({
   initialState,
   reducers: {
     toogleCart(state, action: PayloadAction<DrawerProps>) {
-      const { isDrawerVisible, isCartOpen } = action.payload;
+      const { isDrawerVisible } = action.payload;
       state.isDrawerVisible = !isDrawerVisible;
-      state.isCartOpen = !isCartOpen;
+      state.isCartOpen = true;
       state.isSearchOpen = false;
     },
 
     toogleSearch(state, action: PayloadAction<DrawerProps>) {
-      const { isDrawerVisible, isSearchOpen } = action.payload;
+      const { isDrawerVisible } = action.payload;
       state.isDrawerVisible = !isDrawerVisible;
       state.isCartOpen = false;
-      state.isSearchOpen = !isSearchOpen;
+      state.isSearchOpen = true;
     },
 
     dismissDrawer(state) {
