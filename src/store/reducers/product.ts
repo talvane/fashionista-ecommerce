@@ -1,20 +1,31 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import { AppThunk } from '../store';
+import { createSlice } from '@reduxjs/toolkit';
 
 import { ArrayCatlog } from '../../services/apiCatalog';
 
 interface DisplayProduct {
   loading?: boolean;
   error?: null;
-  product: Array<ArrayCatlog>;
+  product: ArrayCatlog;
   selectedSize: string;
 }
 
 let initialState: DisplayProduct = {
   loading: true,
   error: null,
-  product: [],
+  product: {
+    name: '',
+    style: '',
+    code_color: '',
+    color_slug: '',
+    color: '',
+    on_sale: false,
+    regular_price: '',
+    actual_price: '',
+    discount_percentage: '',
+    installments: '',
+    image: '',
+    sizes: [],
+  },
   selectedSize: '',
 };
 
@@ -27,13 +38,13 @@ const product = createSlice({
       state.error = null;
     },
 
-    success(state, action: PayloadAction<DisplayProduct>) {
+    success(state, action) {
       state.loading = false;
       state.error = null;
-      state.product = action.payload.product;
+      state.product = action.payload.product[0];
     },
 
-    error(state, action: PayloadAction<DisplayProduct>) {
+    error(state, action) {
       state.loading = false;
       state.error = action.payload.error;
     },
@@ -45,7 +56,20 @@ const product = createSlice({
     clear(state) {
       state.loading = false;
       state.error = null;
-      state.product = [];
+      state.product = {
+        name: '',
+        style: '',
+        code_color: '',
+        color_slug: '',
+        color: '',
+        on_sale: false,
+        regular_price: '',
+        actual_price: '',
+        discount_percentage: '',
+        installments: '',
+        image: '',
+        sizes: [],
+      };
       state.selectedSize = '';
     },
   },
@@ -54,14 +78,3 @@ const product = createSlice({
 export const { start, success, error, addSize, clear } = product.actions;
 
 export default product.reducer;
-
-/*
-export const fetchCatalog = (): AppThunk => async (dispatch) => {
-  try {
-    const catalogResult = await getCatalog();
-    dispatch(success({ products: catalogResult }));
-  } catch (err) {
-    dispatch(error({ error: err.toString(), products: [] }));
-  }
-};
-*/

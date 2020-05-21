@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../store';
-
-import { getCatalog, ArrayCatlog } from '../../services/apiCatalog';
+import { ArrayCatlog } from '../../services/apiCatalog';
 
 interface DisplayCatalog {
   loading?: boolean;
@@ -41,12 +39,3 @@ const products = createSlice({
 export const { start, success, error } = products.actions;
 
 export default products.reducer;
-
-export const fetchCatalog = (): AppThunk => async (dispatch) => {
-  try {
-    const catalogResult = await getCatalog();
-    dispatch(success({ products: catalogResult }));
-  } catch (err) {
-    dispatch(error({ error: err.toString(), products: [] }));
-  }
-};

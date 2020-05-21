@@ -27,15 +27,3 @@ const searchPrd = createSlice({
 export const { search } = searchPrd.actions;
 
 export default searchPrd.reducer;
-
-export const searchProducts = (e: any): AppThunk => (dispatch, getState) => {
-  const searchTerm = e.target.value;
-
-  if (searchTerm.length < 3) {
-    dispatch(search({ products: [] }));
-  }
-
-  const catalog = getState().products.products;
-  const itemsFound = searchByTerms(searchTerm, catalog);
-  dispatch(search({ products: itemsFound }));
-};

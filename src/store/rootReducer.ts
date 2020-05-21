@@ -6,6 +6,7 @@ import drawer from './reducers/drawer';
 import products from './reducers/products';
 import search from './reducers/search';
 import product from './reducers/product';
+import cart from './reducers/cart';
 
 const rootReducer = combineReducers({
   router: connectRouter(history),
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   products: products,
   search: search,
   single: product,
+  cart: cart,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
