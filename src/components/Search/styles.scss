@@ -1,0 +1,47 @@
+.search {
+  padding-bottom: 5rem;
+  width: 100%;
+}
+.search__form {
+  background: #f6f6f6;
+  box-shadow: 0 0.2rem 2rem 0 rgba(0, 0, 0, 0.1);
+  color: #fff;
+  display: inline-block;
+  padding: 1rem 1.6rem;
+  width: 100%;
+}
+.search__input {
+  background: #fff;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+  color: #212529;
+  font-size: 1.4rem;
+  font-weight: 600;
+  height: auto;
+  outline: none;
+  padding: 1rem;
+  width: 100%;
+}
+.search__input:focus {
+  box-shadow: 0 0 1px 0 #212529;
+}
+.search__input::placeholder {
+  color: #a7a7a7;
+}
+.search a {
+  display: block;
+}
+.search .product__image {
+  width: 15%;
+}
+.search .product__list__pricing {
+  width: 35%;
+}
+.search .header__title {
+  padding-left: 1.6rem;
+  padding-right: 1.6rem;
+  color: #a7a7a7;
+  font-size: 1.4rem;
+  font-weight: 400;
+}

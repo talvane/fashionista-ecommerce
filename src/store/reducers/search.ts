@@ -1,10 +1,7 @@
 //import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { AppThunk } from '../store';
-
 import { ArrayCatlog } from '../../services/apiCatalog';
-import { searchByTerms } from '../../utils/handlerProduct';
 
 interface SearchProps {
   itemsFound: Array<ArrayCatlog>;

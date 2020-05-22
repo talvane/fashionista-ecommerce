@@ -1,4 +1,4 @@
-import { Catalog } from '../services/apiCatalog';
+import { Catalog, ArrayCatlog } from '../services/apiCatalog';
 import slugfy from '../utils/slugfy';
 
 export const searchByTerms = (searchTerm: string, items: Catalog) =>
@@ -24,4 +24,33 @@ export const filterProductBySlug = (
     (product) => slugfy(product.name) === slug && product.code_color === code
   );
   return product;
+};
+
+export const groupRepeatedProducts = (cart: any, product: any) => {
+  const repeated = cart.find(
+    (cartItem: any) => cartItem.selectedSize === product.selectedSize
+  );
+
+  if (!repeated) {
+    cart.push({ ...product, quantity: 1 });
+    return cart;
+  }
+
+  repeated.quantity += 1;
+  return cart;
+};
+
+export const sumItemsPrice = (items: Array<ArrayCatlog>) => {
+  const totalPrice = items
+    .reduce((acc, item) => {
+      const priceWithoutCurrency = item.actual_price
+        .replace('R$ ', '')
+        .replace(',', '.');
+      const priceToFloat = parseFloat(priceWithoutCurrency);
+      return acc + priceToFloat;
+    }, 0)
+    .toFixed(2)
+    .replace('.', ',');
+
+  return totalPrice;
 };

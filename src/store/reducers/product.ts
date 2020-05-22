@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { ArrayCatlog } from '../../services/apiCatalog';
 
-interface DisplayProduct {
+export interface DisplayProduct {
   loading?: boolean;
   error?: null;
   product: ArrayCatlog;

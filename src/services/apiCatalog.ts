@@ -19,7 +19,9 @@ export interface ArrayCatlog {
   discount_percentage: string;
   installments: string;
   image: string;
-  sizes: Array<Sizes>[];
+  sizes: Array<Sizes>;
+  selectedSize?: string;
+  quantity?: number;
 }
 
 export interface Catalog extends Array<ArrayCatlog> {}

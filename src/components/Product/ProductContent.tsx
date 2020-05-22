@@ -16,7 +16,7 @@ interface ProductContentProps {
   actual_price: string;
   installments: string;
   sizeWasNotSelected: boolean;
-  sizes: Array<Sizes>[];
+  sizes: Array<Sizes>;
   selectedSize: string;
   onClickSize: (event: MouseEvent<HTMLButtonElement>, sky: string) => void;
   onClickAdd: (
