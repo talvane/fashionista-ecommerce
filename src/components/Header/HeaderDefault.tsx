@@ -1,8 +1,9 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { toogleCart, toogleSearch } from '../../store/reducers/drawer';
+import { RootState } from '../../store/rootReducer';
 
 import Header from '.';
 import SearchButton from '../SearchButton';
@@ -28,6 +29,8 @@ const HeaderDefault: React.FC = () => {
     dispatch(toogleCart({ isSearchOpen, isDrawerVisible, isCartOpen }));
   };
 
+  const counter = useSelector((state: RootState) => state.cart.count);
+
   return (
     <Header>
       <div className="header__default">
@@ -44,7 +47,7 @@ const HeaderDefault: React.FC = () => {
             className="header__icons--cart"
             onClick={toogleCartConnected}
           >
-            <CartCounter counter={0} />
+            <CartCounter counter={counter} />
           </CartButton>
         </div>
       </div>

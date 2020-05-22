@@ -6,9 +6,11 @@ interface CartCounterProps extends HTMLAttributes<InnerHTML> {
   counter: number;
 }
 
-const CartCounter: React.FC<CartCounterProps> = ({ counter, ...rest }) => {
+const CartCounter: React.FC<CartCounterProps> = ({ children, ...props }) => {
+  const { counter } = { ...props };
+
   return (
-    <sup className="counter" {...rest}>
+    <sup className="counter">
       <span className="counter__value">{counter}</span>
     </sup>
   );
