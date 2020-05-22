@@ -21,11 +21,11 @@ const SingleProduct: React.FC = () => {
   );
   const { sizeIsMissing } = useSelector((state: RootState) => state.cart);
 
-  const selectSizeConnected = (e: any) => {
-    //dispatch(sizeSelectorThunk(e, product.));
+  const selectSizeConnected = (e: any, sku: string) => {
+    dispatch(sizeSelectorThunk(e, sku));
   };
 
-  const addToCartConnected = (e: any) => {
+  const addToCartConnected = (e: any, selectedSize: string) => {
     dispatch(addToCartThunk(e, selectedSize));
   };
 
@@ -41,14 +41,14 @@ const SingleProduct: React.FC = () => {
         discount={product.discount_percentage}
       />
 
-      {/*<ProductContent
+      <ProductContent
         {...product}
         selectedSize={selectedSize}
         onClickSize={selectSizeConnected}
         onClickAdd={addToCartConnected}
         onSale={product.on_sale}
         sizeWasNotSelected={sizeIsMissing}
-      />*/}
+      />
     </div>
   );
 };

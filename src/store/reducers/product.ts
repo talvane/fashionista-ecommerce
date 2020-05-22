@@ -50,7 +50,7 @@ const product = createSlice({
     },
 
     addSize(state, action) {
-      state.selectedSize = action.payload.sku;
+      state.selectedSize = action.payload;
     },
 
     clear(state) {

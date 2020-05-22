@@ -8,8 +8,9 @@ export const searchByTerms = (searchTerm: string, items: Catalog) =>
     return itemNameLowerCase.includes(searchTermLowerCase);
   });
 
-export const sortByItemName = (items: Catalog) =>
-  items.sort((a, b) => a.name.localeCompare(b.name));
+export const sortByItemName = (items: Catalog) => {
+  return items.sort((a, b) => a.name.localeCompare(b.name));
+};
 
 export const getLastPath = (pathname: any) => pathname.split('/').pop();
 

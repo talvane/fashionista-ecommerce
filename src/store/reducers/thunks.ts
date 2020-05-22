@@ -63,13 +63,13 @@ export const addToCartThunk = (e: any, selectedSize: string): AppThunk => (
   const selectedProduct = getState().single.product;
 
   if (selectedSize === '') {
-    return dispatch(check()); //TODO: ver mensagem anterior de erro
+    dispatch(check());
+  } else {
+    dispatch(
+      addCart({
+        ...selectedProduct,
+        selectedSize,
+      })
+    );
   }
-
-  return dispatch(
-    addCart({
-      ...selectedProduct,
-      selectedSize,
-    })
-  );
 };

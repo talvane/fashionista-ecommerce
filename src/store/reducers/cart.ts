@@ -20,13 +20,13 @@ const cart = createSlice({
   initialState,
   reducers: {
     add(state, action) {
-      state.items = sortByItemName([action.payload.product, ...state.items]);
-      state.count = [action.payload.product, ...state.items].length;
+      state.items = sortByItemName([action.payload, ...state.items]);
+      state.count = state.items.length;
     },
 
     remove(state, action) {
-      state.items = sortByItemName([...action.payload.products]);
-      state.count = [...action.payload.products].length;
+      state.items = sortByItemName([...action.payload]);
+      state.count = state.items.length;
     },
 
     empty(state) {
