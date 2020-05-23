@@ -7,12 +7,7 @@ import {
   error as errorProduct,
   addSize,
 } from './product';
-import {
-  check,
-  add as addCart,
-  remove as removeCart,
-  empty as emptyCart,
-} from './cart';
+import { check, add as addCart, remove as removeCart } from './cart';
 import { dismissDrawer } from './drawer';
 import {
   searchByTerms,
