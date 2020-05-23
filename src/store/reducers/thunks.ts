@@ -7,10 +7,24 @@ import {
   error as errorProduct,
   addSize,
 } from './product';
-import { check, add as addCart } from './cart';
+import {
+  check,
+  add as addCart,
+  remove as removeCart,
+  empty as emptyCart,
+} from './cart';
 import { dismissDrawer } from './drawer';
-import { searchByTerms } from '../../utils/handlerProduct';
-import { getCatalog, getProductByPathname } from '../../services/apiCatalog';
+import {
+  searchByTerms,
+  findIndexBySlug,
+  groupItemsBySlug,
+  removeItemBySlug,
+} from '../../utils/handlerProduct';
+import {
+  getCatalog,
+  getProductByPathname,
+  ArrayCatlog,
+} from '../../services/apiCatalog';
 
 export const searchProducts = (e: any): AppThunk => (dispatch, getState) => {
   const searchTerm = e.target.value;
@@ -72,4 +86,47 @@ export const addToCartThunk = (e: any, selectedSize: string): AppThunk => (
       })
     );
   }
+};
+
+export const addQuantityThunk = (
+  e: any,
+  currentProduct: ArrayCatlog
+): AppThunk => (dispatch) => {
+  e.preventDefault();
+
+  dispatch(addCart({ ...currentProduct })); // TODO: Verificar ordenação dentro do carrinho de compras...
+};
+
+export const removeQuantityThunk = (
+  e: any,
+  itemName: string,
+  selectedSize?: string
+): AppThunk => (dispatch, getState) => {
+  e.preventDefault();
+
+  const cartItems = getState().cart.items;
+  const itemIndex = findIndexBySlug(itemName, selectedSize, cartItems);
+  const groupedItems = groupItemsBySlug(itemName, cartItems);
+
+  if (groupedItems.length > 1) {
+    let clone = Object.assign([], cartItems);
+    clone.splice(itemIndex, 1);
+
+    dispatch(removeCart(clone));
+  }
+};
+
+export const removeItemThunk = (e: any, selectedSize?: string): AppThunk => (
+  dispatch,
+  getState
+) => {
+  e.preventDefault();
+
+  const cartItems = getState().cart.items;
+  const itemToRemove = removeItemBySlug(selectedSize, cartItems);
+  dispatch(removeCart(itemToRemove));
+};
+
+export const dismissDrawerThunk = (): AppThunk => (dispatch) => {
+  dispatch(dismissDrawer());
 };

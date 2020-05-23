@@ -11,8 +11,15 @@ import Button from '../Button';
 interface ProductListItemProps {
   item: ArrayCatlog;
   onClickAdd: (event: MouseEvent<HTMLButtonElement>, item: ArrayCatlog) => void;
-  onClickRemove: (event: MouseEvent<HTMLButtonElement>, name: string) => void;
-  onClickDropItem: (event: MouseEvent<HTMLButtonElement>, name: string) => void;
+  onClickRemove: (
+    event: MouseEvent<HTMLButtonElement>,
+    name: string,
+    selectedSize?: string
+  ) => void;
+  onClickDropItem: (
+    event: MouseEvent<HTMLButtonElement>,
+    selectedSize?: string
+  ) => void;
 }
 
 const ProductListItem: React.FC<ProductListItemProps> = ({
@@ -47,7 +54,9 @@ const ProductListItem: React.FC<ProductListItemProps> = ({
             <div className="product__list__quantity">
               <MinusButton
                 className="cart__icons"
-                onClick={(event) => onClickRemove(event, item.name)}
+                onClick={(event) =>
+                  onClickRemove(event, item.name, item.selectedSize)
+                }
               />
               <div className="product__list__input">{item.quantity}</div>
               <PlusButton
@@ -69,7 +78,7 @@ const ProductListItem: React.FC<ProductListItemProps> = ({
         <div className="product__row">
           <Button
             className="cart__remove"
-            onClick={(event) => onClickDropItem(event, item.name)}
+            onClick={(event) => onClickDropItem(event, item.selectedSize)}
           >
             Remover item
           </Button>

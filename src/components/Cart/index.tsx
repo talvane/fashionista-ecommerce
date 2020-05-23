@@ -11,22 +11,32 @@ import {
   sumItemsPrice,
 } from '../../utils/handlerProduct';
 
+import {
+  addQuantityThunk,
+  removeQuantityThunk,
+  removeItemThunk,
+} from '../../store/reducers/thunks';
+
 import './styles.scss';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
   const { items } = useSelector((state: RootState) => state.cart);
 
-  const addQuantityConnected = (e: any) => {
-    // TODO: //dispatch()
+  const addQuantityConnected = (e: any, item: ArrayCatlog) => {
+    dispatch(addQuantityThunk(e, item));
   };
 
-  const removeQuantityConnected = (e: any) => {
-    // TODO: //dispatch()
+  const removeQuantityConnected = (
+    e: any,
+    itemName: string,
+    selectedSize?: string
+  ) => {
+    dispatch(removeQuantityThunk(e, itemName, selectedSize));
   };
 
-  const removeItemConnected = (e: any) => {
-    // TODO: //dispatch()
+  const removeItemConnected = (e: any, selectedSize?: string) => {
+    dispatch(removeItemThunk(e, selectedSize));
   };
 
   return (

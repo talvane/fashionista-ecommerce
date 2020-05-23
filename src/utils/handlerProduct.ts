@@ -54,3 +54,22 @@ export const sumItemsPrice = (items: Array<ArrayCatlog>) => {
 
   return totalPrice;
 };
+
+export const findIndexBySlug = (
+  itemName: string,
+  selectedSize: string | undefined,
+  arrayOfItems: Catalog
+) =>
+  arrayOfItems.findIndex(
+    (item) =>
+      slugfy(item.name) === slugfy(itemName) &&
+      item.selectedSize === selectedSize
+  );
+
+export const groupItemsBySlug = (itemName: string, arrayOfItems: Catalog) =>
+  arrayOfItems.filter((item) => slugfy(item.name) === slugfy(itemName));
+
+export const removeItemBySlug = (
+  selectedSize: string | undefined,
+  arrayOfItems: Catalog
+) => arrayOfItems.filter((item) => item.selectedSize !== selectedSize);
