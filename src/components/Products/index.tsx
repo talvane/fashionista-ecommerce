@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { v1 as uuid } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchCatalog } from '../../store/reducers/thunks';
+import { fetchCatalog, clearProductThunk } from '../../store/reducers/thunks';
 import { RootState } from '../../store/rootReducer';
 
 import Product from '../Product';
@@ -15,6 +15,7 @@ const Products: React.FC = () => {
   const data = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
+    dispatch(clearProductThunk());
     dispatch(fetchCatalog());
   }, [dispatch]);
 

@@ -6,6 +6,7 @@ import {
   success as successProduct,
   error as errorProduct,
   addSize,
+  clear as clearProduct,
 } from './product';
 import { check, add as addCart, remove as removeCart } from './cart';
 import { dismissDrawer } from './drawer';
@@ -124,4 +125,8 @@ export const removeItemThunk = (e: any, selectedSize?: string): AppThunk => (
 
 export const dismissDrawerThunk = (): AppThunk => (dispatch) => {
   dispatch(dismissDrawer());
+};
+
+export const clearProductThunk = (): AppThunk => (dispatch) => {
+  dispatch(clearProduct());
 };
