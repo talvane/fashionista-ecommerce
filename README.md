@@ -73,14 +73,6 @@ Como um profissional front-end, você será responsável por desenvolver as **pr
 
 A recomendação é para que o deploy seja feito no netilify (gratuito) ou serviço similar - https://www.netlify.com/
 
-## Layouts
-
-Os layouts abaixo servem de referência visual das funcionalidades, sintam-se livres para segui-las ou implementá-las com base em outras referências, desde que atenda às regras e aos requisitos obrigatórios.
-
-## Layouts: Referência Navegável
-
-https://viniciusvinna.netlify.app/react-fashionista
-
 ## Requisitos:
 
 - **[Node v13.8.0](https://nodejs.org/en/)** - ou superior, instalado em seu computador.
