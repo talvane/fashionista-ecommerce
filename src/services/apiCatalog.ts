@@ -31,8 +31,14 @@ export async function getCatalog() {
 
   try {
     const catalog = await axios.get<Catalog>(url);
+    const ArrFilters = catalog.data.map((elem) => {
+      return elem.name.split(' ')[0];
+    });
+    const filters = ArrFilters.filter(
+      (item, i) => ArrFilters.indexOf(item) === i
+    ).sort();
 
-    return catalog.data;
+    return { catalog: catalog.data, filters };
   } catch (error) {
     throw error;
   }
@@ -40,5 +46,5 @@ export async function getCatalog() {
 
 export const getProductByPathname = async (pathname: string, code: string) => {
   const data = await getCatalog();
-  return filterProductBySlug(pathname, code, data);
+  return filterProductBySlug(pathname, code, data.catalog);
 };

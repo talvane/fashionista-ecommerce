@@ -36,10 +36,14 @@ export const searchProducts = (e: any): AppThunk => (dispatch, getState) => {
 
 export const fetchCatalog = (): AppThunk => async (dispatch) => {
   try {
-    const catalogResult = await getCatalog();
-    dispatch(successProducts({ products: catalogResult }));
+    const dataResult = await getCatalog();
+    const catalogResult = dataResult.catalog;
+    const filtersResult = dataResult.filters;
+    dispatch(
+      successProducts({ products: catalogResult, filters: filtersResult })
+    );
   } catch (err) {
-    dispatch(error({ error: err.toString(), products: [] }));
+    dispatch(error({ error: err.toString(), products: [], filters: [] }));
   }
 };
 
@@ -129,4 +133,51 @@ export const dismissDrawerThunk = (): AppThunk => (dispatch) => {
 
 export const clearProductThunk = (): AppThunk => (dispatch) => {
   dispatch(clearProduct());
+};
+
+export const filterCatalog = (checkboxes: Object): AppThunk => async (
+  dispatch,
+  getState
+) => {
+  let filters = [];
+  for (let prop in checkboxes) {
+    if (Object.getOwnPropertyDescriptor(checkboxes, prop)?.value) {
+      filters.push(prop);
+    }
+  }
+
+  if (filters) {
+    const catalog = getState().products.products;
+  }
+
+  /*
+  const ArrFilters = catalog.data.map((elem) => {
+    return elem.name.split(' ')[0];
+  });
+  const filters = ArrFilters.filter(
+    (item, i) => ArrFilters.indexOf(item) === i
+  ).sort();
+  */
+
+  /*
+  export const searchByTerms = (searchTerm: string, items: Catalog) =>
+  items.filter((item) => {
+    const itemNameLowerCase = item.name.toLowerCase();
+    const searchTermLowerCase = searchTerm.toLowerCase();
+    return itemNameLowerCase.includes(searchTermLowerCase);
+  });
+  */
+
+  /*
+  try {
+    const dataResult = await getCatalog();
+    const catalogResult = dataResult.catalog;
+    const filtersResult = dataResult.filters;
+    dispatch(
+      successProducts({ products: catalogResult, filters: filtersResult })
+    );
+  } catch (err) {
+    dispatch(error({ error: err.toString(), products: [], filters: [] }));
+  }
+  */
 };

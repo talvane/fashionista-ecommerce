@@ -6,12 +6,14 @@ interface DisplayCatalog {
   loading?: boolean;
   error?: null;
   products: Array<ArrayCatlog>;
+  filters: Array<string>;
 }
 
 let initialState: DisplayCatalog = {
   loading: true,
   error: null,
   products: [],
+  filters: [''],
 };
 
 const products = createSlice({
@@ -27,6 +29,7 @@ const products = createSlice({
       state.loading = false;
       state.error = null;
       state.products = action.payload.products;
+      state.filters = action.payload.filters;
     },
 
     error(state, action: PayloadAction<DisplayCatalog>) {
