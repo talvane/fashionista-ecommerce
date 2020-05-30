@@ -1,7 +1,7 @@
 import { AppThunk } from '../store';
 
 import { search } from './search';
-import { success as successProducts, error } from './products';
+import { success as successProducts, error, successfilter } from './products';
 import {
   success as successProduct,
   error as errorProduct,
@@ -20,6 +20,7 @@ import {
   getCatalog,
   getProductByPathname,
   ArrayCatlog,
+  Catalog,
 } from '../../services/apiCatalog';
 
 export const searchProducts = (e: any): AppThunk => (dispatch, getState) => {
@@ -139,6 +140,7 @@ export const filterCatalog = (checkboxes: Object): AppThunk => async (
   dispatch,
   getState
 ) => {
+  let catalogFilter: Array<Catalog> = [];
   let filters = [];
   for (let prop in checkboxes) {
     if (Object.getOwnPropertyDescriptor(checkboxes, prop)?.value) {
@@ -146,38 +148,31 @@ export const filterCatalog = (checkboxes: Object): AppThunk => async (
     }
   }
 
-  if (filters) {
-    const catalog = getState().products.products;
+  if (filters.length > 0) {
+    try {
+      const dataResult = await getCatalog();
+      const catalog = dataResult.catalog;
+
+      for (let nameCatego of filters) {
+        let catFilter = catalog.filter((item) => {
+          const itemNameSplit = item.name.split(' ')[0];
+          return itemNameSplit.includes(nameCatego);
+        });
+
+        catalogFilter.push(catFilter);
+      }
+
+      dispatch(successfilter({ products: catalogFilter.flat() }));
+    } catch (err) {
+      dispatch(error({ error: err.toString(), products: [], filters: [] }));
+    }
+  } else {
+    try {
+      const dataResult = await getCatalog();
+      const catalog = dataResult.catalog;
+      dispatch(successfilter({ products: catalog }));
+    } catch (err) {
+      dispatch(error({ error: err.toString(), products: [], filters: [] }));
+    }
   }
-
-  /*
-  const ArrFilters = catalog.data.map((elem) => {
-    return elem.name.split(' ')[0];
-  });
-  const filters = ArrFilters.filter(
-    (item, i) => ArrFilters.indexOf(item) === i
-  ).sort();
-  */
-
-  /*
-  export const searchByTerms = (searchTerm: string, items: Catalog) =>
-  items.filter((item) => {
-    const itemNameLowerCase = item.name.toLowerCase();
-    const searchTermLowerCase = searchTerm.toLowerCase();
-    return itemNameLowerCase.includes(searchTermLowerCase);
-  });
-  */
-
-  /*
-  try {
-    const dataResult = await getCatalog();
-    const catalogResult = dataResult.catalog;
-    const filtersResult = dataResult.filters;
-    dispatch(
-      successProducts({ products: catalogResult, filters: filtersResult })
-    );
-  } catch (err) {
-    dispatch(error({ error: err.toString(), products: [], filters: [] }));
-  }
-  */
 };

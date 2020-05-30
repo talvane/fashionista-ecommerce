@@ -36,9 +36,15 @@ const products = createSlice({
       state.loading = false;
       state.error = action.payload.error;
     },
+
+    successfilter(state, action) {
+      state.loading = false;
+      state.error = null;
+      state.products = action.payload.products;
+    },
   },
 });
 
-export const { start, success, error } = products.actions;
+export const { start, success, error, successfilter } = products.actions;
 
 export default products.reducer;
