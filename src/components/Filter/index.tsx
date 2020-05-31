@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { RootState } from '../../store/rootReducer';
@@ -7,44 +7,27 @@ import { filterCatalog } from '../../store/reducers/thunks';
 
 import './styles.scss';
 
-let OPTIONS = [''];
-
 const Filter: React.FC = () => {
-  const [checkboxes, setCheckboxes] = useState<Object>({});
+  //const [checkboxes, setCheckboxes] = useState<Object>({});
   const { filters } = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    OPTIONS = filters;
-
-    return setCheckboxes(
-      OPTIONS.reduce(
-        (options, option) => ({
-          ...options,
-          [option]: false,
-        }),
-        {}
-      )
-    );
-  }, [filters]);
-
-  useEffect(() => {
-    dispatch(filterCatalog(checkboxes));
-  }, [dispatch, checkboxes]);
 
   const handleCheckboxChange = (e: any) => {
     const { name } = e.target;
     let dstCheckbox = {};
-    const value = !Object.getOwnPropertyDescriptor(checkboxes, name)?.value;
+    const value = !Object.getOwnPropertyDescriptor(filters, name)?.value;
 
-    Object.assign(dstCheckbox, checkboxes);
+    Object.assign(dstCheckbox, filters);
     Object.defineProperty(dstCheckbox, name, { value: value });
 
-    setCheckboxes(dstCheckbox);
+    dispatch(filterCatalog(dstCheckbox));
   };
 
+  //console.log(filters);
+  //console.log(Object.keys(filters));
+
   const createCheckbox = (option: string) => {
-    const isValue = Object.getOwnPropertyDescriptor(checkboxes, option)?.value;
+    const isValue = Object.getOwnPropertyDescriptor(filters, option)?.value;
 
     return (
       <MyCheckbox
@@ -59,7 +42,9 @@ const Filter: React.FC = () => {
 
   return (
     <div className="filter">
-      <div className="filter__input">{OPTIONS.map(createCheckbox)}</div>
+      <div className="filter__input">
+        {Object.keys(filters).map(createCheckbox)}
+      </div>
     </div>
   );
 };

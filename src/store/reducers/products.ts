@@ -6,7 +6,7 @@ interface DisplayCatalog {
   loading?: boolean;
   error?: null;
   products: Array<ArrayCatlog>;
-  filters: Array<string>;
+  filters: Object;
 }
 
 let initialState: DisplayCatalog = {
@@ -41,6 +41,7 @@ const products = createSlice({
       state.loading = false;
       state.error = null;
       state.products = action.payload.products;
+      state.filters = action.payload.filters;
     },
   },
 });

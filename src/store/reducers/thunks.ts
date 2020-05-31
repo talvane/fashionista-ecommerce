@@ -39,7 +39,14 @@ export const fetchCatalog = (): AppThunk => async (dispatch) => {
   try {
     const dataResult = await getCatalog();
     const catalogResult = dataResult.catalog;
-    const filtersResult = dataResult.filters;
+    const filtersResult = dataResult.filters.reduce(
+      (options, option) => ({
+        ...options,
+        [option]: false,
+      }),
+      {}
+    );
+
     dispatch(
       successProducts({ products: catalogResult, filters: filtersResult })
     );
@@ -137,8 +144,7 @@ export const clearProductThunk = (): AppThunk => (dispatch) => {
 };
 
 export const filterCatalog = (checkboxes: Object): AppThunk => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   let catalogFilter: Array<Catalog> = [];
   let filters = [];
@@ -162,7 +168,9 @@ export const filterCatalog = (checkboxes: Object): AppThunk => async (
         catalogFilter.push(catFilter);
       }
 
-      dispatch(successfilter({ products: catalogFilter.flat() }));
+      dispatch(
+        successfilter({ products: catalogFilter.flat(), filters: checkboxes })
+      );
     } catch (err) {
       dispatch(error({ error: err.toString(), products: [], filters: [] }));
     }
@@ -170,7 +178,7 @@ export const filterCatalog = (checkboxes: Object): AppThunk => async (
     try {
       const dataResult = await getCatalog();
       const catalog = dataResult.catalog;
-      dispatch(successfilter({ products: catalog }));
+      dispatch(successfilter({ products: catalog, filters: checkboxes }));
     } catch (err) {
       dispatch(error({ error: err.toString(), products: [], filters: [] }));
     }
