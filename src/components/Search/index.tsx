@@ -15,8 +15,6 @@ const Search: React.FC = () => {
   const dispatch = useDispatch();
   const { itemsFound } = useSelector((state: RootState) => state.search);
 
-  console.log(itemsFound);
-
   const searchConnected = (e: any) => {
     dispatch(searchProducts(e));
   };

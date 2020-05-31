@@ -1,7 +1,7 @@
 import { AppThunk } from '../store';
 
 import { search } from './search';
-import { success as successProducts, error } from './products';
+import { success as successProducts, error, successfilter } from './products';
 import {
   success as successProduct,
   error as errorProduct,
@@ -20,6 +20,7 @@ import {
   getCatalog,
   getProductByPathname,
   ArrayCatlog,
+  Catalog,
 } from '../../services/apiCatalog';
 
 export const searchProducts = (e: any): AppThunk => (dispatch, getState) => {
@@ -36,10 +37,21 @@ export const searchProducts = (e: any): AppThunk => (dispatch, getState) => {
 
 export const fetchCatalog = (): AppThunk => async (dispatch) => {
   try {
-    const catalogResult = await getCatalog();
-    dispatch(successProducts({ products: catalogResult }));
+    const dataResult = await getCatalog();
+    const catalogResult = dataResult.catalog;
+    const filtersResult = dataResult.filters.reduce(
+      (options, option) => ({
+        ...options,
+        [option]: false,
+      }),
+      {}
+    );
+
+    dispatch(
+      successProducts({ products: catalogResult, filters: filtersResult })
+    );
   } catch (err) {
-    dispatch(error({ error: err.toString(), products: [] }));
+    dispatch(error({ error: err.toString(), products: [], filters: [] }));
   }
 };
 
@@ -129,4 +141,46 @@ export const dismissDrawerThunk = (): AppThunk => (dispatch) => {
 
 export const clearProductThunk = (): AppThunk => (dispatch) => {
   dispatch(clearProduct());
+};
+
+export const filterCatalog = (checkboxes: Object): AppThunk => async (
+  dispatch
+) => {
+  let catalogFilter: Array<Catalog> = [];
+  let filters = [];
+  for (let prop in checkboxes) {
+    if (Object.getOwnPropertyDescriptor(checkboxes, prop)?.value) {
+      filters.push(prop);
+    }
+  }
+
+  if (filters.length > 0) {
+    try {
+      const dataResult = await getCatalog();
+      const catalog = dataResult.catalog;
+
+      for (let nameCatego of filters) {
+        let catFilter = catalog.filter((item) => {
+          const itemNameSplit = item.name.split(' ')[0];
+          return itemNameSplit.includes(nameCatego);
+        });
+
+        catalogFilter.push(catFilter);
+      }
+
+      dispatch(
+        successfilter({ products: catalogFilter.flat(), filters: checkboxes })
+      );
+    } catch (err) {
+      dispatch(error({ error: err.toString(), products: [], filters: [] }));
+    }
+  } else {
+    try {
+      const dataResult = await getCatalog();
+      const catalog = dataResult.catalog;
+      dispatch(successfilter({ products: catalog, filters: checkboxes }));
+    } catch (err) {
+      dispatch(error({ error: err.toString(), products: [], filters: [] }));
+    }
+  }
 };
