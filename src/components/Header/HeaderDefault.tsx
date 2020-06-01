@@ -56,8 +56,8 @@ const HeaderDefault: React.FC = () => {
   return (
     <Header>
       <div className="header__default">
-        <Link to="/">
-          <img src="" alt="Fashionista"></img>
+        <Link to="/" className="header__logo">
+          Fashionista
         </Link>
 
         <div className="header__icons">
