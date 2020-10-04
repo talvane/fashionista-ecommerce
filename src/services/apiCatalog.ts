@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { filterProductBySlug } from '../utils/handlerProduct';
+import Catalog from '../pages/Catalog';
 
 interface Sizes {
   available: boolean;
@@ -27,7 +28,7 @@ export interface ArrayCatlog {
 export interface Catalog extends Array<ArrayCatlog> {}
 
 export async function getCatalog() {
-  const url = 'https://5e9935925eabe7001681c856.mockapi.io/api/v1/catalog';
+  const url = 'https://5f074b869c5c250016306cbf.mockapi.io/api/v1/catalog';
 
   try {
     const catalog = await axios.get<Catalog>(url);
@@ -35,7 +36,7 @@ export async function getCatalog() {
       return elem.name.split(' ')[0];
     });
     const filters = ArrFilters.filter(
-      (item, i) => ArrFilters.indexOf(item) === i
+      (item: any, i: any) => ArrFilters.indexOf(item) === i
     ).sort();
 
     return { catalog: catalog.data, filters };
@@ -48,3 +49,19 @@ export const getProductByPathname = async (pathname: string, code: string) => {
   const data = await getCatalog();
   return filterProductBySlug(pathname, code, data.catalog);
 };
+
+// import productsEndpoint from './products.json';
+// import { filterProductBySlug } from '../utils/productHandler';
+
+// const getProducts = mockedData => new Promise(resolve => resolve([...mockedData.products]));
+
+// const getProductByPathname = pathname => new Promise(resolve => (
+//   resolve(filterProductBySlug(pathname, productsEndpoint, getProducts))
+// ));
+
+// const api = {
+//   getProducts: () => getProducts(productsEndpoint),
+//   getProductByPathname: pathname => getProductByPathname(pathname),
+// };
+
+// export default api;
